@@ -425,7 +425,7 @@ button img {
 
 @media screen and (max-width: 480px) {
   .container {
-    max-height: 95vh;
+    max-height: 65vh;
     max-width: 95vw;       /* Используем vw для ширины, чтобы не превышать ширину экрана */
     overflow-x: hidden;    /* Лишнее содержимое по горизонтали скрываем */
     box-sizing: border-box;
