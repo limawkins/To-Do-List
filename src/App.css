@@ -21,7 +21,7 @@ body {
   background: white;
   padding: 50px;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   max-height: 700px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 8px 20px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -113,6 +113,7 @@ body.dark {
   align-items: center;
   justify-content: center;
   background: none;
+  flex-shrink: 0
 }
 
 .task .check-btn i {
@@ -228,9 +229,6 @@ button img {
 }
 
 .theme-toggle {
-  position: fixed;
-  top: 50px;
-  right: 320px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -324,17 +322,13 @@ button img {
 .container.dark .delete-btn img {
   filter: brightness(0) invert(1);
 }
-
-.header-controls {
-  position: fixed;
-  top: 50px;
-  right: 450px;
+.header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  z-index: 1000;
+  padding: 10px 20px;
+  width: 100%;
 }
-
 .language-switcher {
   display: flex;
   gap: 0.5rem;
@@ -422,16 +416,23 @@ button img {
 .container.container-ru .foot button {
   height: 45px;  
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+ 
+}
 
 @media screen and (max-width: 480px) {
+ 
   .container {
-    max-height: 95vh;
-    max-width: 95vw;       /* Используем vw для ширины, чтобы не превышать ширину экрана */
+    max-height: 55vh;
+    max-width: 350px;     /* Используем vw для ширины, чтобы не превышать ширину экрана */
     overflow-x: hidden;    /* Лишнее содержимое по горизонтали скрываем */
     box-sizing: border-box;
   }
 
-  /* Шапка: язык слева, тема справа */
   .header {
     flex-direction: row;
     justify-content: space-between;
@@ -444,23 +445,22 @@ button img {
   .language-switcher .lang-btn {
     padding: 3px 5px;
     font-size: 11px;
-    width: 60px;
-    height: 25px;
+    width: 65px;
+    height: 30px;
   }
 
   .theme-toggle {
     gap: 0.2rem;
-    top: 80px;
-    right: 20px;
+    
   }
 
   .theme-option img {
-    width: 22px;
-    height: 22px;
+    width: 25px;
+    height: 25px;
   }
 
   .switch-container {
-    width: 2rem;
+    width: 2.1rem;
     height: 1.1rem;
   }
 
@@ -470,11 +470,6 @@ button img {
     transform: translateX(0);
   }
   
-  .language-switcher {
-    position: fixed;
-    top: 80px;
-    right: 250px;
-  }
   
   .switch-slider.active {
     transform: translateX(0.9rem);

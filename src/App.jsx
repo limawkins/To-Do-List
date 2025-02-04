@@ -18,7 +18,6 @@ function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Определяем, мобильное ли устройство (ширина окна <= 480px)
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 480);
@@ -109,19 +108,8 @@ function App() {
 
   return (
     <>
-      <div className="header-controls">
-        <div className={`theme-toggle ${darkMode ? 'dark' : ''}`} onClick={toggleTheme}>
-          <div className="theme-option">
-            <img src={sunIcon} alt="Light mode" />
-          </div>
-          <div className="switch-container">
-            <div className={`switch-slider ${darkMode ? 'active' : ''}`}></div>
-          </div>
-          <div className="theme-option">
-            <img src={moonIcon} alt="Dark mode" />
-          </div>
-        </div>
-
+      {/* Новый контейнер header для верхней части */}
+      <div className="header">
         <div className="language-switcher">
           <button
             className={`lang-btn ${i18n.language === 'en' ? 'active' : ''}`}
@@ -136,9 +124,21 @@ function App() {
             Русский
           </button>
         </div>
+
+        <div className={`theme-toggle ${darkMode ? 'dark' : ''}`} onClick={toggleTheme}>
+          <div className="theme-option">
+            <img src={sunIcon} alt="Light mode" />
+          </div>
+          <div className="switch-container">
+            <div className={`switch-slider ${darkMode ? 'active' : ''}`}></div>
+          </div>
+          <div className="theme-option">
+            <img src={moonIcon} alt="Dark mode" />
+          </div>
+        </div>
       </div>
 
-      {/* Добавляем класс container-ru, если выбран русский */}
+      {/* Основной контейнер */}
       <div className={`container ${darkMode ? 'dark' : ''} ${i18n.language === 'ru' ? 'container-ru' : ''}`}>
         <h2 className="head">{t('todoList')}</h2>
         <div className="create-todo">
@@ -173,7 +173,6 @@ function App() {
                     onChange={(e) => setEditText(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && saveEdit()}
                   />
-                  {/* Если устройство не мобильное – показываем кнопку "Сохранить" */}
                   {!isMobile && (
                     <button className="save-btn" onClick={saveEdit}>
                       {t('save')}
@@ -184,8 +183,6 @@ function App() {
                 <span>{task.text}</span>
               )}
 
-              {/* Если мобильное устройство, то при повторном нажатии на кнопку редактирования 
-                  происходит сохранение изменений */}
               <button
                 className="edit-btn"
                 onClick={() => {
