@@ -424,8 +424,6 @@ button img {
 }
 
 @media screen and (max-width: 480px) {
-
-  /* Ограничиваем размеры контейнера и предотвращаем горизонтальное расширение */
   .container {
     max-height: 95vh;
     max-width: 95vw;       /* Используем vw для ширины, чтобы не превышать ширину экрана */
@@ -471,23 +469,22 @@ button img {
     height: 0.9rem;
     transform: translateX(0);
   }
+  
   .language-switcher {
     position: fixed;
     top: 80px;
-    right: 250px; 
-
+    right: 250px;
   }
+  
   .switch-slider.active {
     transform: translateX(0.9rem);
   }
 
-  /* Заголовок */
   .head {
     font-size: 1.2rem;
     margin-bottom: 8px;
   }
 
-  /* Форма создания задачи */
   .create-todo {
     align-items: stretch;
   }
@@ -504,14 +501,13 @@ button img {
     font-size: 18px;
   }
 
-  /* Элементы задачи */
   .task {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 6px 0;
-    width: 100%;         /* не превышает ширину родителя */
-    overflow: hidden;    /* скрываем возможный избыток */
+    width: 100%;
+    overflow: hidden;
   }
 
   .task span {
@@ -526,49 +522,45 @@ button img {
   }
 
   .task .check-btn {
-    flex-shrink: 0;      /* не допускаем сжатия */
+    flex-shrink: 0;
     width: 30px;
     height: 30px;
   }
   
-  /* Если задача в режиме редактирования, используем ту же высоту */
   .task.editing {
     min-height: 30px;
   }
 
-  /* Блок редактирования задачи */
   .edit-task {
-    display: flex;       /* задаём flex-контейнер */
+    display: flex;
     align-items: center;
     gap: 4px;
-    flex: 1;             /* занимает доступное пространство */
-    min-width: 0;        /* позволяет корректно обрезаться */
-    overflow: hidden;    /* предотвращаем расширение */
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    max-width: 100%;
   }
   
-  /* Поле ввода в режиме редактирования */
   .edit-task input {
     font-size: 13px;
-    flex: 1;           /* занимает всё доступное пространство */
-    min-width: 0; 
+    flex: 1;
+    min-width: 0;
     padding: 6px;
-    max-width: 100%;   /* не превышает контейнер */
+    max-width: 100%;
     box-sizing: border-box;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   
-  /* Кнопка сохранения в режиме редактирования */
   .edit-task button {
-    flex-shrink: 0;    /* не сжимается */
-    width: 70px;       /* фиксированная ширина */
-    max-width: 50px;   /* если нужно ограничение */
+    flex-shrink: 0;
+    width: 70px;
+    max-width: 50px;
     padding: 6px;
     font-size: 13px;
   }
 
-  /* Подвал */
   .foot {
     flex-direction: column;
     align-items: center;
@@ -578,10 +570,19 @@ button img {
   
   .foot button {
     width: 100%;
-    padding: 8px;
+    padding: 1px;
     max-width: 95px;
     margin: 0;
     max-height: 35px;
     font-size: 13px;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  .edit-task input:focus {
+    outline: none;
+    border-color: #624cc7; 
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { useTranslation } from 'react-i18next';
 import './App.css';
 import plusIcon from './assets/styles/plus.svg';
@@ -16,6 +16,17 @@ function App() {
   const [editTaskId, setEditTaskId] = useState(null);
   const [editText, setEditText] = useState('');
   const [darkMode, setDarkMode] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Определяем, мобильное ли устройство (ширина окна <= 480px)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 480);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const savedTasks = JSON.parse(localStorage.getItem('tasks'));
@@ -92,7 +103,6 @@ function App() {
     }
   };
 
- 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
@@ -161,14 +171,32 @@ function App() {
                     type="text"
                     value={editText}
                     onChange={(e) => setEditText(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && saveEdit()}
                   />
-                  <button className="save-btn" onClick={saveEdit}>{t('save')}</button>
+                  {/* Если устройство не мобильное – показываем кнопку "Сохранить" */}
+                  {!isMobile && (
+                    <button className="save-btn" onClick={saveEdit}>
+                      {t('save')}
+                    </button>
+                  )}
                 </div>
               ) : (
                 <span>{task.text}</span>
               )}
 
-              <button className="edit-btn" onClick={() => startEdit(task.id, task.text)} disabled={task.completed}>
+              {/* Если мобильное устройство, то при повторном нажатии на кнопку редактирования 
+                  происходит сохранение изменений */}
+              <button
+                className="edit-btn"
+                onClick={() => {
+                  if (isMobile && editTaskId === task.id) {
+                    saveEdit();
+                  } else {
+                    startEdit(task.id, task.text);
+                  }
+                }}
+                disabled={task.completed}
+              >
                 <img src={editIcon} alt="Edit Task" />
               </button>
               <button className="delete-btn" onClick={() => deleteTask(task.id)}>
@@ -182,7 +210,9 @@ function App() {
           <span>
             {t('pendingTasks', { count: tasks.filter((task) => !task.completed).length })}
           </span>
-          <button className="clear-btn" onClick={clearAllTasks}>{t('clearAll')}</button>
+          <button className="clear-btn" onClick={clearAllTasks}>
+            {t('clearAll')}
+          </button>
         </div>
       </div>
     </>
